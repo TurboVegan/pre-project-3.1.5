@@ -22,7 +22,7 @@ public class AuthController {
     }
 
     @GetMapping("/auth")
-    public ResponseEntity<User> getAuthUser(@CurrentSecurityContext(expression = "authentication") Principal principal) {
+    public ResponseEntity<User> getAuthUser(Principal principal) {
         User user = userService.findByUsername(principal.getName());
         return ResponseEntity.ok(user);
     }
