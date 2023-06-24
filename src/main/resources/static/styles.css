@@ -1,0 +1,21 @@
+.navbar-left {
+    width: 12%;
+    float: left;
+    position: relative;
+    height: 100vh;
+    padding-top: 20px;
+    background-color: midnightblue;
+}
+
+
+
+
+.mainContent {
+    padding-top: 20px;
+    width: 86%;
+    float: right;
+}
+
+.mainContent .pillContent .h2 {
+   padding-bottom: 8px;
+}
