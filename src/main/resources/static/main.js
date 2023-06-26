@@ -72,14 +72,14 @@ pills.forEach((clickedPill) => {
             pill.classList.remove('active');
         });
         clickedPill.classList.add('active');
-        let tabId = clickedPill.getAttribute('id');
-        await activePillContent(tabId);
+        let pillID = clickedPill.getAttribute('id');
+        await activePillContent(pillID);
     });
 });
 
-async function activePillContent(tabId) {
+async function activePillContent(pillID) {
     pillsContent.forEach((clickedPillContent) => {
-        clickedPillContent.classList.contains(tabId) ?
+        clickedPillContent.classList.contains(pillID) ?
             clickedPillContent.classList.add('active') :
             clickedPillContent.classList.remove('active');
     })
@@ -95,14 +95,14 @@ tabs.forEach((clickedTab) => {
             tab.classList.remove('active');
         });
         clickedTab.classList.add('active');
-        let tabaId = clickedTab.getAttribute('id');
-        await activeTabContent(tabaId);
+        let tabID = clickedTab.getAttribute('id');
+        await activeTabContent(tabID);
     });
 });
 
-async function activeTabContent(tabaId) {
+async function activeTabContent(tabID) {
     tabsContent.forEach((clickedTabContent) => {
-        clickedTabContent.classList.contains(tabaId) ?
+        clickedTabContent.classList.contains(tabID) ?
             clickedTabContent.classList.add('active') :
             clickedTabContent.classList.remove('active');
     })
@@ -138,15 +138,18 @@ async function addNewUser(event) {
             roles: listOfRole
         })
     }
-    await fetch(url, method).then(() => {
+    let page = await fetch(url, method);
+    if (page.ok) {
         form_new.reset();
-        getAdminPage();
+        await getAdminPage();
         document.getElementById('newUserTab').classList.remove('active');
         document.getElementById('newUserFormView').classList.remove('active');
 
         document.getElementById('usersTableTab').classList.add('active');
         document.getElementById('usersTableView').classList.add('active');
-    });
+    } else {
+        alert('Username already exists. Change the USERNAME')
+    }
 }
 
 

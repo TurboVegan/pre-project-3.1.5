@@ -51,6 +51,10 @@ public class AdminController {
     @PostMapping
     public ResponseEntity<HttpStatus> addUser(@RequestBody UserDTO userDTO) {
 
+        if (userService.findByUsername(userDTO.getUsername()) != null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         userService.save(userService.convertToUser(userDTO));
         return ResponseEntity.ok(HttpStatus.OK);
     }
