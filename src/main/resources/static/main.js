@@ -5,21 +5,19 @@ async function getAdminPage() {
     let page = await fetch(url);
     if (page.ok) {
         let listAllUser = await page.json();
-        loadTableData(listAllUser);
-    } /*else {
-        alert(`Error, ${page.status}`)
-    }*/
+        loadAllUsersTable(listAllUser);
+    }
 }
 
-function loadTableData(listAllUser) {
+function loadAllUsersTable(listAllUser) {
     let tableBody = document.getElementById('usersTableBody');
-    let dataHtml = '';
+    let tableDataHtml = '';
     for (let user of listAllUser) {
         let roles = [];
         for (let role of user.roles) {
             roles.push(" " + role.name)
         }
-        dataHtml +=
+        tableDataHtml +=
             `<tr>
     <td>${user.id}</td>
     <td>${user.username}</td>
@@ -37,7 +35,7 @@ function loadTableData(listAllUser) {
     </td>
 </tr>`
     }
-    tableBody.innerHTML = dataHtml;
+    tableBody.innerHTML = tableDataHtml;
 }
 
 async function getMyUser() {
@@ -112,11 +110,6 @@ async function activeTabContent(tabID) {
 
 const form_new = document.getElementById('formForNewUser');
 
-async function newUser() {
-    form_new.addEventListener('submit', addNewUser);
-}
-form_new.addEventListener('submit', addNewUser);
-
 async function addNewUser(event) {
     event.preventDefault();
     let listOfRole = [];
@@ -152,8 +145,9 @@ async function addNewUser(event) {
     }
 }
 
-
-
+async function newUserSubmitActivation() {
+    form_new.addEventListener('submit', addNewUser);
+}
 
 
 
@@ -166,19 +160,19 @@ async function loadUserTable() {
     } else {
         alert(`Error, ${page.status}`)
     }
-    let dataHtml = '';
+    let tableDataHtml = '';
     let roles = [];
     for (let role of currentUser.roles) {
         roles.push(" " + role.name)
     }
-    dataHtml +=
+    tableDataHtml +=
         `<tr>
     <td>${currentUser.id}</td>
     <td>${currentUser.username}</td>
     <td>${currentUser.yearOfBirth}</td>
     <td>${roles}</td>
 </tr>`
-    tableBody.innerHTML = dataHtml;
+    tableBody.innerHTML = tableDataHtml;
 }
 
 
